@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organism Cognitive Dashboard | Seeing &bull; Thinking &bull; Speaking &bull; Listening</title>
+  <!-- Google Fonts: Outfit, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <div class="app-container">
+    <!-- Top Global Header -->
+    <header class="top-nav glass-card">
+      <div class="brand">
+        <div class="brand-beacon">
+          <div class="pulse-ring"></div>
+          <div class="beacon-core"></div>
+        </div>
+        <div class="brand-info">
+          <h1 class="brand-title">ORGANISM // COGNITIVE STREAM</h1>
+          <p class="brand-sub">AUTONOMOUS EMBODIED LEARNER &bull; ZERO BACKPROPAGATION</p>
+        </div>
+      </div>
+
+      <!-- Live Stream Status & Health Ticker -->
+      <div class="nav-status">
+        <div class="status-indicator online" id="status-badge">
+          <span class="status-dot"></span>
+          <span id="status-text">HTTP STREAM ACTIVE</span>
+        </div>
+        <div class="nav-pill">
+          <span class="pill-k">STEP</span>
+          <span class="pill-v font-mono" id="nav-step">0</span>
+        </div>
+        <div class="nav-pill">
+          <span class="pill-k">FPS</span>
+          <span class="pill-v font-mono" id="nav-fps">0.0</span>
+        </div>
+        <div class="nav-pill highlight">
+          <span class="pill-k">ACTION</span>
+          <span class="pill-v font-mono" id="nav-action">INITIALIZING</span>
+        </div>
+      </div>
+
+      <!-- Quick Executive Controls -->
+      <div class="nav-controls">
+        <button class="btn btn-primary" id="btn-pause-play">
+          <span id="icon-play-pause">⏸</span>
+          <span id="label-play-pause">Pause</span>
+        </button>
+        <button class="btn btn-secondary" id="btn-step" title="Advance 1 Step">
+          <span>⏭ Step</span>
+        </button>
+        <button class="btn btn-secondary" id="btn-sleep" title="Trigger Sleep Consolidation">
+          <span>💤 Sleep</span>
+        </button>
+        <div class="btn-group">
+          <button class="btn btn-reward" id="btn-reward" title="Reward (+1.0 Dopamine)">+1</button>
+          <button class="btn btn-punish" id="btn-punish" title="Punish (-1.0 Negative Shock)">-1</button>
+        </div>
+        <button class="btn btn-danger" id="btn-reset" title="Reset Organism Simulation">↺</button>
+      </div>
+    </header>
+
+    <!-- Metrics Strip -->
+    <div class="metrics-bar glass-card">
+      <div class="metric-item">
+        <span class="m-label">REWARD (r)</span>
+        <span class="m-val font-mono" id="met-reward">+0.00</span>
+      </div>
+      <div class="m-sep"></div>
+      <div class="metric-item">
+        <span class="m-label">VISUAL NOVELTY</span>
+        <span class="m-val font-mono" id="met-novelty">0.00</span>
+      </div>
+      <div class="m-sep"></div>
+      <div class="metric-item">
+        <span class="m-label">TD ERROR (&delta;)</span>
+        <span class="m-val font-mono" id="met-delta">+0.00</span>
+      </div>
+      <div class="m-sep"></div>
+      <div class="metric-item">
+        <span class="m-label">PRED ERROR</span>
+        <span class="m-val font-mono" id="met-error">0.000</span>
+      </div>
+      <div class="m-sep"></div>
+      <div class="metric-item">
+        <span class="m-label">PROGRESS</span>
+        <span class="m-val font-mono" id="met-progress">0.000</span>
+      </div>
+      <div class="m-sep"></div>
+      <div class="metric-item">
+        <span class="m-label">CONFIDENCE</span>
+        <span class="m-val font-mono" id="met-confidence">0.00</span>
+      </div>
+      <div class="m-sep"></div>
+      <div class="metric-item">
+        <span class="m-label">VOCABULARY</span>
+        <span class="m-val font-mono" id="met-vocab">0 words</span>
+      </div>
+      <div class="m-sep"></div>
+      <div class="metric-item">
+        <span class="m-label">SCENES MEMORIZED</span>
+        <span class="m-val font-mono" id="met-scenes">0 / 600</span>
+      </div>
+    </div>
+
+    <!-- 4 CORE FACULTIES GRID: SEEING, THINKING, SPEAKING, LISTENING -->
+    <main class="cognitive-grid">
+      
+      <!-- 1. WHAT MODEL IS SEEING -->
+      <section class="faculty-card card-seeing glass-card">
+        <div class="faculty-header">
+          <div class="faculty-title">
+            <span class="faculty-icon icon-cyan">👁️</span>
+            <div>
+              <h2>WHAT MODEL IS SEEING</h2>
+              <span class="faculty-subtitle">Retinotopic Receptive Field &bull; Fixation Target</span>
+            </div>
+          </div>
+          <span class="faculty-badge badge-cyan" id="seeing-action-badge">FIXATION: (0,0)</span>
+        </div>
+
+        <div class="faculty-body">
+          <div class="canvas-retina-box">
+            <canvas id="canvas-retina" width="64" height="36"></canvas>
+            <canvas id="canvas-retina-overlay" width="64" height="36"></canvas>
+            <div class="retina-meta-overlay">
+              <span id="seeing-page-info" class="font-mono">Page: 1/30</span>
+              <span id="seeing-click-info" class="font-mono">Clicks: 0</span>
+            </div>
+          </div>
+
+          <div class="seeing-details">
+            <div class="field-group">
+              <span class="field-label">SCENE TEXT EXTRACTED:</span>
+              <div class="text-display-box" id="seeing-text">
+                Observation in progress...
+              </div>
+            </div>
+
+            <div class="visual-meters">
+              <div class="meter-col">
+                <div class="meter-labels">
+                  <span>Visual Novelty</span>
+                  <span class="font-mono" id="lbl-seeing-nov">0.00</span>
+                </div>
+                <div class="meter-track"><div class="meter-fill fill-cyan" id="bar-seeing-nov" style="width: 0%;"></div></div>
+              </div>
+              <div class="meter-col">
+                <div class="meter-labels">
+                  <span>Scene Motion / Change</span>
+                  <span class="font-mono" id="lbl-seeing-motion">0.00</span>
+                </div>
+                <div class="meter-track"><div class="meter-fill fill-cyan" id="bar-seeing-motion" style="width: 0%;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. WHAT MODEL IS THINKING -->
+      <section class="faculty-card card-thinking glass-card">
+        <div class="faculty-header">
+          <div class="faculty-title">
+            <span class="faculty-icon icon-violet">🧠</span>
+            <div>
+              <h2>WHAT MODEL IS THINKING</h2>
+              <span class="faculty-subtitle">Inner Monologue &bull; Global Workspace &bull; Concepts</span>
+            </div>
+          </div>
+          <span class="faculty-badge badge-violet">ACTIVE WORKSPACE</span>
+        </div>
+
+        <div class="faculty-body">
+          <div class="thought-stage">
+            <span class="thought-quote-mark">&ldquo;</span>
+            <div class="thought-stream font-mono" id="thinking-thought">
+              Synthesizing latent associations across episodic memory...
+            </div>
+            <span class="thought-quote-mark">&rdquo;</span>
+          </div>
+
+          <div class="field-group" style="margin-top: 10px;">
+            <span class="field-label">ACTIVATED CONCEPTS IN MIND:</span>
+            <div class="concept-tags-cloud" id="thinking-concepts">
+              <span class="concept-tag">cortex</span>
+              <span class="concept-tag">signals</span>
+              <span class="concept-tag">vision</span>
+            </div>
+          </div>
+
+          <div class="field-group" style="margin-top: 10px;">
+            <span class="field-label">WORKING MEMORY COMPETITION (GLOBAL WORKSPACE):</span>
+            <div class="workspace-items-box" id="thinking-workspace">
+              <div class="empty-hint">Awaiting competing sensory and novelty posts...</div>
+            </div>
+          </div>
+
+          <!-- Drives Compact Meters -->
+          <div class="drives-micro-row">
+            <div class="drive-micro">
+              <span class="d-name">Curiosity</span>
+              <span class="d-val font-mono" id="d-val-curiosity">0.50</span>
+            </div>
+            <div class="drive-micro">
+              <span class="d-name">Boredom</span>
+              <span class="d-val font-mono" id="d-val-boredom">0.50</span>
+            </div>
+            <div class="drive-micro">
+              <span class="d-name">Fatigue</span>
+              <span class="d-val font-mono" id="d-val-fatigue">0.00</span>
+            </div>
+            <div class="drive-micro">
+              <span class="d-name">Confidence</span>
+              <span class="d-val font-mono" id="d-val-conf">0.50</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. WHAT MODEL IS SPEAKING -->
+      <section class="faculty-card card-speaking glass-card">
+        <div class="faculty-header">
+          <div class="faculty-title">
+            <span class="faculty-icon icon-emerald">🗣️</span>
+            <div>
+              <h2>WHAT MODEL IS SPEAKING</h2>
+              <span class="faculty-subtitle">Vocal Motor Output &bull; Articulated Speech</span>
+            </div>
+          </div>
+          <div class="header-toggle-group">
+            <label class="toggle-label" title="Enable browser Web Speech API vocalization">
+              <input type="checkbox" id="chk-audio-speak">
+              <span class="toggle-slider"></span>
+              <span class="toggle-text">Voice Audio</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="faculty-body">
+          <div class="speech-hero-bubble">
+            <div class="speech-avatar">
+              <div class="sound-wave">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="speech-bubble-content">
+              <span class="speech-eyebrow">CURRENT VOCAL OUTPUT:</span>
+              <div class="speech-text" id="speaking-current">
+                "Listening to sensory environment..."
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group" style="margin-top: 10px;">
+            <span class="field-label">RECENT SPOKEN UTTERANCES:</span>
+            <div class="history-list" id="speaking-history">
+              <div class="empty-hint">No vocal statements recorded yet.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. WHAT MODEL IS LISTENING -->
+      <section class="faculty-card card-listening glass-card">
+        <div class="faculty-header">
+          <div class="faculty-title">
+            <span class="faculty-icon icon-amber">👂</span>
+            <div>
+              <h2>WHAT MODEL IS LISTENING</h2>
+              <span class="faculty-subtitle">Auditory Afferent Stream &bull; Human Intercom</span>
+            </div>
+          </div>
+          <span class="faculty-badge badge-amber" id="listening-badge">EAR ACTIVE</span>
+        </div>
+
+        <div class="faculty-body">
+          <div class="listening-hero-box">
+            <span class="field-label">LAST STATEMENT HEARD:</span>
+            <div class="heard-text font-mono" id="listening-current">
+              (No external voice input received yet)
+            </div>
+          </div>
+
+          <!-- Interactive Human Speech Input -->
+          <form class="intercom-form" id="form-speak">
+            <div class="input-with-button">
+              <input type="text" id="input-speech" class="speech-input" placeholder="Speak to the organism (e.g. 'tell me about vision')..." autocomplete="off">
+              <button type="submit" class="btn btn-primary" id="btn-send-speech">Speak</button>
+            </div>
+            <div class="preset-phrases">
+              <span class="preset-label">Quick Prompts:</span>
+              <button type="button" class="preset-chip" data-phrase="what are you observing right now?">"what are you observing?"</button>
+              <button type="button" class="preset-chip" data-phrase="how does the visual cortex work?">"visual cortex?"</button>
+              <button type="button" class="preset-chip" data-phrase="explore more diverse pages">"explore diverse pages"</button>
+            </div>
+          </form>
+
+          <div class="field-group" style="margin-top: 10px;">
+            <span class="field-label">LISTENING HISTORY:</span>
+            <div class="history-list" id="listening-history">
+              <div class="empty-hint">No incoming auditory inputs yet.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- LIVE HYPERPARAMETER TUNING CONSOLE -->
+    <section class="tuning-section glass-card">
+      <div class="tuning-header">
+        <div class="tuning-title">
+          <span class="tuning-icon">⚙️</span>
+          <div>
+            <h3>LIVE HYPERPARAMETER CONTROLS</h3>
+            <p>Modify plasticity, sparsity, and reinforcement parameters in real time over HTTP</p>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="btn-apply-hyperparams">
+          <span>Apply Hyperparameters</span>
+        </button>
+      </div>
+
+      <div class="tuning-grid">
+        <!-- Cortical Sparsity (k) -->
+        <div class="tuning-item">
+          <div class="tuning-meta">
+            <span class="t-name">Cortical Sparsity (k active)</span>
+            <span class="t-val font-mono" id="val-k">24</span>
+          </div>
+          <input type="range" min="4" max="64" value="24" class="t-slider" id="param-k">
+        </div>
+
+        <!-- Sparse Hebbian Rate (eta_enc) -->
+        <div class="tuning-item">
+          <div class="tuning-meta">
+            <span class="t-name">Hebbian Rate (&eta;<sub>enc</sub>)</span>
+            <span class="t-val font-mono" id="val-enc-eta">0.050</span>
+          </div>
+          <input type="range" min="0.005" max="0.25" step="0.005" value="0.05" class="t-slider" id="param-enc-eta">
+        </div>
+
+        <!-- Policy Learning Rate (eta_pol) -->
+        <div class="tuning-item">
+          <div class="tuning-meta">
+            <span class="t-name">Policy Rate (&eta;<sub>pol</sub>)</span>
+            <span class="t-val font-mono" id="val-pol-eta">0.15</span>
+          </div>
+          <input type="range" min="0.01" max="0.50" step="0.01" value="0.15" class="t-slider" id="param-pol-eta">
+        </div>
+
+        <!-- Discount Factor (gamma) -->
+        <div class="tuning-item">
+          <div class="tuning-meta">
+            <span class="t-name">TD Discount (&gamma;)</span>
+            <span class="t-val font-mono" id="val-gamma">0.90</span>
+          </div>
+          <input type="range" min="0.50" max="0.99" step="0.01" value="0.90" class="t-slider" id="param-gamma">
+        </div>
+
+        <!-- Eligibility Trace (lambda) -->
+        <div class="tuning-item">
+          <div class="tuning-meta">
+            <span class="t-name">Eligibility (&lambda;)</span>
+            <span class="t-val font-mono" id="val-lam">0.60</span>
+          </div>
+          <input type="range" min="0.0" max="0.95" step="0.05" value="0.60" class="t-slider" id="param-lam">
+        </div>
+
+        <!-- Novelty Allocation -->
+        <div class="tuning-item">
+          <div class="tuning-meta">
+            <span class="t-name">Novelty Engram Alloc</span>
+            <span class="t-val font-mono" id="val-alloc">0.30</span>
+          </div>
+          <input type="range" min="0.10" max="0.60" step="0.02" value="0.30" class="t-slider" id="param-alloc">
+        </div>
+
+        <!-- Step Delay (ms) -->
+        <div class="tuning-item">
+          <div class="tuning-meta">
+            <span class="t-name">Execution Step Delay</span>
+            <span class="t-val font-mono" id="val-delay">150 ms</span>
+          </div>
+          <input type="range" min="10" max="1000" step="10" value="150" class="t-slider" id="param-delay">
+        </div>
+
+        <!-- Sleep Interval -->
+        <div class="tuning-item">
+          <div class="tuning-meta">
+            <span class="t-name">Sleep Cycle Interval</span>
+            <span class="t-val font-mono" id="val-sleep">400 steps</span>
+          </div>
+          <input type="range" min="100" max="1000" step="50" value="400" class="t-slider" id="param-sleep">
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer System Metadata -->
+    <footer class="app-footer">
+      <span>ANTIGRAVITY // COGNITIVE AGENT ARCHITECTURE</span>
+      <span>&bull;</span>
+      <span>REST &amp; SSE HTTP STREAMING</span>
+      <span>&bull;</span>
+      <span>ZERO AUTOGRAD &bull; ZERO BACKPROPAGATION</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
